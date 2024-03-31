@@ -29,6 +29,7 @@ def generate_private_key(length):
 		_rand = int(hex_key.encode('hex'),16)
 	#Update object
 	private_key = _rand
+	print(private_key)
 	return private_key
 
 #Public key = primitive root ^ private key % prime
@@ -39,10 +40,9 @@ def generate_public_key(private_key):
 #Secret key = public key ^ private key % q
 def generate_secret(private_key, public_key):
 	#Formula
-	secret = pow(long(public_key), long(private_key), prime)
+	secret = pow(int(public_key), int(private_key), prime)
 	try:
-		secret_bytes = secret.to_bytes(
-			shared_secret.bit_length() // 8 + 1, byteorder="big")
+		secret_bytes = secret.to_bytes(secret.bit_length() // 8 + 1, byteorder="big")
 	except AttributeError:
 		secret_bytes = str(secret)
 	#Generate hash key using SHA256 
